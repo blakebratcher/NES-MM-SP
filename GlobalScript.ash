@@ -15,7 +15,7 @@ import function IsOwnTimerExpired(int timerid);
 import function DisplaySpeechBackgroundEx(this Character*, String message);
 import function repeatedly_execute_always();
 
-//veraltet (defines)
+// Legacy action defines (use eAction enum instead)
 #define A_WALK_TO  0
 #define A_LOOK_AT  1
 #define A_TALK_TO  2
@@ -56,22 +56,22 @@ enum eAction
 
 import function UsedAction(eAction test_action);
 
-// --- cancelable semi-blocking move-player-character functions:---
+// --- cancelable semi-blocking move-player-character functions ---
 
-//! veraltet (obsolet)
+// @deprecated Use player.Walk() instead
 import function MovePlayer(int x, int y);
-//! veraltet (obsolet) - wird durch ein Player-Extend ersetzt (Character.GoToCharacter(Character *charac, CharacterDirection dir, bool FacePlayer, eBlockingMMM blocking);)
+// @deprecated Use Character.GoToCharacter extender instead
 import function GoToCharacter(Character *charid, int direction, int NPCfacesplayer, int blocking);
-//! veraltet (obsolet) - wird durch ein Player-Extend ersetzt (Character.GoToCharacter(Character *charac, CharacterDirection dir, bool FacePlayer, eBlockingMMM blocking);)
+// @deprecated Use Character.GoToCharacter extender instead
 import function NPCGoToCharacter(Character *charidwhogoes, Character *charidtogoto, int direction, int NPCfacesplayer, int blocking);
 
 // -- interaction function ---
-//! wird aufgerufen, wenn keine Aktion für das aktuelle Objekt definiert wurde (sollte immer in einem else-Zweig am Ende stehen)
+//! wird aufgerufen, wenn keine Aktion fï¿½r das aktuelle Objekt definiert wurde (sollte immer in einem else-Zweig am Ende stehen)
 import function Unhandled ();
 
-//! lässt den Charakter eiinen Text sagen, wenn die spezifizierte Aktion wurde
+//! lï¿½sst den Charakter eiinen Text sagen, wenn die spezifizierte Aktion wurde
 import function SayIfAction(this Character*, eAction action, String message);
-//! lässt einen Charakter einen Satz sagen, wenn er der aktuelle Spieler ist
+//! lï¿½sst einen Charakter einen Satz sagen, wenn er der aktuelle Spieler ist
 import bool SayIfPlayer(this Character*, String mesage);
 
 
@@ -89,52 +89,48 @@ import function AlarmSound ();
 
 // --- interaction functions ---
 
-//! Extender Funktion - setzt die gewählte Spielfigur auf die aktuelle Position, ohne diese dahin laufen zu lassen.
+//! Extender Funktion - setzt die gewï¿½hlte Spielfigur auf die aktuelle Position, ohne diese dahin laufen zu lassen.
 import function PlaceCharacter (this Character*, int x, int y, CharacterDirection dir);
 
-//! veraltet (obsolet)
+// @deprecated Use Character.PlaceCharacter extender instead
 import function PlacePC (int x, int y, CharacterDirection dir);
-//! muss für jedes Tür-Objekt in before fade-in aufgerufen werden um den aktuellen Zustand der Tür anzuzeigen und das Objekt nicht klickbar zu machen
+//! muss fï¿½r jedes Tï¿½r-Objekt in before fade-in aufgerufen werden um den aktuellen Zustand der Tï¿½r anzuzeigen und das Objekt nicht klickbar zu machen
 import function init_object (this Object*,  int GI);
 
-//! lässt den aktuellen Spieler an die Position x,y laufen und richtet ihn danach mit Richtung dir aus
+//! lï¿½sst den aktuellen Spieler an die Position x,y laufen und richtet ihn danach mit Richtung dir aus
 import function any_click_move (int x, int y, CharacterDirection dir);
-//! lässt den Spieler nur an die Position laufen, wenn die aktuelle Aktion 'eActWalk' ist
+//! lï¿½sst den Spieler nur an die Position laufen, wenn die aktuelle Aktion 'eActWalk' ist
 import function any_click_walk (int x, int y, CharacterDirection dir);
-//! lässt den Spieler nur an die Position laufen, wenn die aktuelle Aktion 'eActLookat' ist
+//! lï¿½sst den Spieler nur an die Position laufen, wenn die aktuelle Aktion 'eActLookat' ist
 import function any_click_walk_look (int x, int y, CharacterDirection dir, String lookat);
 
-//! normale Türenfunktion
-/*! zeigt die Tür im geöffneten oder geschlossenen Zustand an, je nach Wert der übergebenen GlobalInt
+//! normale Tï¿½renfunktion
+/*! zeigt die Tï¿½r im geï¿½ffneten oder geschlossenen Zustand an, je nach Wert der ï¿½bergebenen GlobalInt
 		\param GI die zu verwendende GlobalInt
-		\param *objekt das anzuzeigende oder zu verbergende Türenobjekt 
+		\param *objekt das anzuzeigende oder zu verbergende Tï¿½renobjekt 
 		\param x horizontale Position auf dem Bildschirm
 		\param y vertiakle Position auf dem Bildschirm
-		\param dir Die Richtung, in die der Spieler schaut, bevor die Tür geöffnet oder geschlossen wird
+		\param dir Die Richtung, in die der Spieler schaut, bevor die Tï¿½r geï¿½ffnet oder geschlossen wird
 		\param nr_room der neue Raum, in den der Spiueler wechselt
 		\param nr_x horizontale Position auf dem Bildschirm im neuen Raum
 		\param nr_y vertiakle Position auf dem Bildschirm im neuen Raum
 		\param nr_dir die Richtung in die der Spieler im neuen Raum schaut */
 import function any_click_on_door (int GI, Object *objekt, int x, int y, CharacterDirection dir, int nr_room, int nr_x, int nr_y, CharacterDirection nr_dir);
-//! setzt die Türenrückmeldungen für das Anschauen, für eine gesperrte Tür und für ein falsches Item zum Aufsperren
+//! setzt die Tï¿½renrï¿½ckmeldungen fï¿½r das Anschauen, fï¿½r eine gesperrte Tï¿½r und fï¿½r ein falsches Item zum Aufsperren
 import function SetDoorStrings (String lookat, String islocked, String wrongitem);
 
-//! erweiterte Türen-Aktion
+//! erweiterte Tï¿½ren-Aktion
 import function any_click_on_door_special (int GI, Object *objekt, int x, int y, CharacterDirection dir, int nr_room, int nr_x, int nr_y, CharacterDirection nr_dir, int opensound, int closesound, int key, int closevalue);
 import function any_click_on_light_switch (int hotspot, int x, int y, CharacterDirection dir);
 import function any_click_use_inv (int item, int x, int y, CharacterDirection dir);
-//! lässt den Spieler an die angegebene Position laufen, den Gegenstand anschauen und bei gewählter eActPickup-Aktion danach ins Inventar aufnehmen
+//! lï¿½sst den Spieler an die angegebene Position laufen, den Gegenstand anschauen und bei gewï¿½hlter eActPickup-Aktion danach ins Inventar aufnehmen
 import function any_click_walk_look_pick (int x, int y, CharacterDirection dir, string lookat, Object *object, InventoryItem *item, int GI, int sound);
 
-//! veraltet (obsolet)
+// @deprecated Legacy interaction functions - use any_click_* functions instead
 import function SetWalkTo (int x, int y, CharacterDirection dir);
-//! veraltet (obsolet)
 import function MovedTo ();
-//! veraltet (obsolet)
 import function WalkedToLookedAt (string lookat);
-//! veraltet (obsolet)
 import function UsedInvItem (int item);
-//! veraltet (obsolet)
 import function WalkedToLookedAtPickedUp (string lookat, Object *object, InventoryItem *item, int GI, int sound);  
 
 
