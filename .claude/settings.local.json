@@ -5,7 +5,10 @@
       "Bash(find:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(for file in room2.asc room12.asc room22.asc room23.asc room36.asc GlobalScript.asc Credits.asc)",
+      "Bash(do echo \"=== Checking $file ===\")",
+      "Bash(done)"
     ]
   }
 }
